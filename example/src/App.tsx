@@ -1,11 +1,11 @@
 import React from 'react';
-import SayHello from 'typescript-react-test';
-import './App.css';
+import { REValue } from 'typescript-react-test';
+import 'typescript-react-test/lib/css/recomponents.css';
 
 function App() {
   return (
     <div className="App">
-     <SayHello name="Anvay" />
+     <REValue name="var1" unit="cookie" value={3}/>
     </div>
   );
 }

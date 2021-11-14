@@ -1,0 +1,19 @@
+.REValue{
+    color: dodgerblue;
+    border-bottom: dodgerblue 1px dashed;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;    
+    cursor: col-resize;
+    transition-duration: 1s;
+
+}
+
+.REValue:hover{
+    /*background-color: rgb(240, 240, 240);
+    border-radius: 2px;
+    padding: 5px;*/
+    color: lightblue;
+    border-bottom: lightblue 1px dashed;
+} 
