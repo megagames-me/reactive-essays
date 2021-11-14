@@ -105,3 +105,5 @@ dist
 
 /example/node_modules
 /example/build
+
+/.vscode/
