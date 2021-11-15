@@ -15,7 +15,6 @@ type REValueState = {
   minvalue?: number;
   maxvalue?: number;
   active: boolean;
-  
 };
 
 
@@ -31,14 +30,15 @@ class REValue extends Component<REValueProps, REValueState> {
   };
 
   private ghostEle: HTMLElement;
+  private direction: Boolean;
 
-  constructor(props: REValueProps, state: REValueState){
+  constructor(props: REValueProps, state: REValueState) {
     super(props, state)
 
     this.mouseDown = this.mouseDown.bind(this);
     this.mouseUp = this.mouseUp.bind(this);
     this.mouseDrag = this.mouseDrag.bind(this);
-    
+
   }
 
   mouseDown(event: any) {
@@ -46,28 +46,58 @@ class REValue extends Component<REValueProps, REValueState> {
     document.body.appendChild(this.ghostEle);
     event.dataTransfer?.setDragImage(this.ghostEle, -99999, -99999)
     event.dataTransfer.effectAllowed = "none";
-    this.setState(() => ({active: true}))
+    this.setState(() => ({ active: true }))
+    this.direction = true;
     console.log("HI", event)
     return false;
-    
   }
   mouseUp(event: any) {
     document.body.removeChild(this.ghostEle);
-    this.setState(() => ({active: false}))
+    this.setState(() => ({ active: false }))
     console.log("bye", event)
+    this.direction = false;
   }
 
-  mouseDrag(event: any) {
-    console.log("OMG", event)
-  
+  mouseDrag(_event: any) {
+    // console.log(this.direction)
+    // console.log("OMGG", this.props.value, event)
+
+    if (this.props.maxvalue == null || this.props.minvalue == null) {
+      if (this.direction == true) {
+        this.setState({ //the error happens here
+          value: this.state.value + 1
+        });
+      } else {
+        this.setState({ //the error happens here
+          value: this.state.value - 1
+        });
+      }
+    }
+    else if (this.direction == true) {
+      if (this.props.maxvalue >= this.props.value) {
+        this.setState({ //the error happens here
+          value: this.state.value + 1
+        });
+      }
+    }
+    else {
+      if (this.props.minvalue <= this.props.value) {
+        this.setState({ //the error happens here
+          value: this.state.value - 1
+        });
+      }
+    }
+    console.log(this.state.value)
+    this.render();
   }
 
   get actualunit() {
-    return this.props.unit ? (this.props.value !== 1 ? this.props.unit + "s" : this.props.unit) : "";
+    return this.props.unit ? (this.state.value !== 1 ? this.props.unit + "s" : this.props.unit) : "";
   }
 
   render() {
-    return <span className="REValue" draggable={true} onDragStart={this.mouseDown} onDragEnd={this.mouseUp} onDrag={this.mouseDrag}>{this.props.value} {this.actualunit}</span>;
+    console.log("rendered!")
+    return <span className="REValue" draggable={true} onDragStart={this.mouseDown} onDragEnd={this.mouseUp} onDrag={this.mouseDrag}>{this.state.value} {this.actualunit}</span>;
   }
 }
 
@@ -77,4 +107,4 @@ const REOutput = ({ name }: { name: string }): JSX.Element => (
   <div>Hey {name}, say hello to TypeScript.</div>
 );
 */
-export {REValue};
+export { REValue };
