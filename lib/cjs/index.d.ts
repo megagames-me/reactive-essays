@@ -17,7 +17,6 @@ declare type REValueState = {
 declare class REValue extends Component<REValueProps, REValueState> {
     state: REValueState;
     private ghostEle;
-    private direction;
     constructor(props: REValueProps, state: REValueState);
     mouseDown(event: any): boolean;
     mouseUp(event: any): void;

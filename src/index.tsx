@@ -30,7 +30,7 @@ class REValue extends Component<REValueProps, REValueState> {
   };
 
   private ghostEle: HTMLElement;
-  private direction: Boolean;
+
 
   constructor(props: REValueProps, state: REValueState) {
     super(props, state)
@@ -43,52 +43,28 @@ class REValue extends Component<REValueProps, REValueState> {
 
   mouseDown(event: any) {
     this.ghostEle = document.createElement("div");
+    this.ghostEle.innerHTML = "ghost";
+    this.ghostEle.style.opacity = "0";
     document.body.appendChild(this.ghostEle);
     event.dataTransfer?.setDragImage(this.ghostEle, -99999, -99999)
     event.dataTransfer.effectAllowed = "none";
     this.setState(() => ({ active: true }))
-    this.direction = true;
-    console.log("HI", event)
+
+
     return false;
   }
   mouseUp(event: any) {
     document.body.removeChild(this.ghostEle);
     this.setState(() => ({ active: false }))
-    console.log("bye", event)
-    this.direction = false;
+    console.log(event);
+
   }
 
   mouseDrag(_event: any) {
-    // console.log(this.direction)
-    // console.log("OMGG", this.props.value, event)
-
-    if (this.props.maxvalue == null || this.props.minvalue == null) {
-      if (this.direction == true) {
-        this.setState({ //the error happens here
-          value: this.state.value + 1
-        });
-      } else {
-        this.setState({ //the error happens here
-          value: this.state.value - 1
-        });
-      }
-    }
-    else if (this.direction == true) {
-      if (this.props.maxvalue >= this.props.value) {
-        this.setState({ //the error happens here
-          value: this.state.value + 1
-        });
-      }
-    }
-    else {
-      if (this.props.minvalue <= this.props.value) {
-        this.setState({ //the error happens here
-          value: this.state.value - 1
-        });
-      }
-    }
+    // I will code this later, mr Alan. I know how to do it.
+    _event.dataTransfer?.setDragImage(this.ghostEle, -99999, -99999)
     console.log(this.state.value)
-    this.render();
+  
   }
 
   get actualunit() {
