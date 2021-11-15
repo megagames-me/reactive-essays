@@ -10,12 +10,6 @@ This is a TypeScript + React.js library, inspired by [Tangle](https://github.com
 
 For more details, please visit our [wiki](https://github.com/megagames-me/reactive-essays/wiki).
 
-## Information for contributors
-
-If you aren't working on this project, skip to the next section.
-
-Please give a descriptive commit message. Also, you must have yarn installed since that is the primary packaging system we have. 
-
 ## Dependencies
 
 (Dependencies means what you need for this library to work)
