@@ -39,3 +39,7 @@ For a more in-depth tutorial, visit [this](https://code.visualstudio.com/docs/se
 ### React.js
 
 This project also requires React.js. When you downloaded Node.js, you also downloaded a command-line tool named `npm`. This is used for managing the different libraries. For example, for using this library you must install React.js through npm. 
+_____
+Copyright © 2021 Anvay Mathur <<suggestions@megagames.me>>, Alan Shen
+
+Licensed under the MIT License
