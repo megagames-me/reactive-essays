@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
 type REValueProps = {
-  name: string;
+  id: string;
   value: number;
   unit: string | null;
   minvalue?: number;
@@ -9,7 +9,7 @@ type REValueProps = {
 };
 
 type REValueState = {
-  name: string;
+  id: string;
   value: number;
   unit: string | null;
   minvalue?: number;
@@ -21,7 +21,7 @@ type REValueState = {
 class REValue extends Component<REValueProps, REValueState> {
   state: REValueState = {
     // optional second annotation for better type inference
-    name: this.props.name,
+    id: this.props.id,
     value: this.props.value,
     unit: this.props.unit,
     minvalue: this.props.minvalue ? this.props.minvalue : 0,
@@ -30,7 +30,7 @@ class REValue extends Component<REValueProps, REValueState> {
   };
 
   private ghostEle: HTMLElement;
-
+  private befX: number;
 
   constructor(props: REValueProps, state: REValueState) {
     super(props, state)
@@ -38,7 +38,7 @@ class REValue extends Component<REValueProps, REValueState> {
     this.mouseDown = this.mouseDown.bind(this);
     this.mouseUp = this.mouseUp.bind(this);
     this.mouseDrag = this.mouseDrag.bind(this);
-
+    this.befX = -1;
   }
 
   mouseDown(event: any) {
@@ -49,22 +49,25 @@ class REValue extends Component<REValueProps, REValueState> {
     event.dataTransfer?.setDragImage(this.ghostEle, -99999, -99999)
     event.dataTransfer.effectAllowed = "none";
     this.setState(() => ({ active: true }))
-
-
     return false;
   }
-  mouseUp(event: any) {
+  mouseUp(/*event: any*/) {
     document.body.removeChild(this.ghostEle);
     this.setState(() => ({ active: false }))
-    console.log(event);
+    //console.log(event);
+    this.befX = -1;
 
   }
 
   mouseDrag(_event: any) {
-    // I will code this later, mr Alan. I know how to do it.
-    _event.dataTransfer?.setDragImage(this.ghostEle, -99999, -99999)
-    console.log(this.state.value)
-  
+
+    _event.dataTransfer?.setDragImage(this.ghostEle, -99999, -99999);
+    let val = this.state.value + (_event.pageX - this.befX);
+    if (this.befX !== -1 && !([0,1].includes(_event.pageX)) && this.state.minvalue ? val >= this.state.minvalue : true && this.state.maxvalue ? val <= this.state.maxvalue : true) {
+      console.log(_event)
+      this.setState(() => ({value: val }));
+    }
+    this.befX = _event.pageX;
   }
 
   get actualunit() {
@@ -72,8 +75,9 @@ class REValue extends Component<REValueProps, REValueState> {
   }
 
   render() {
-    console.log("rendered!")
-    return <span className="REValue" draggable={true} onDragStart={this.mouseDown} onDragEnd={this.mouseUp} onDrag={this.mouseDrag}>{this.state.value} {this.actualunit}</span>;
+    //console.log("rendered");
+    return <span className="REValue" id={this.state.id} draggable={true} onDragStart={this.mouseDown} onDragEnd={this.mouseUp} onDrag={this.mouseDrag}>{this.state.value} {this.actualunit}</span>;
+    
   }
 }
 

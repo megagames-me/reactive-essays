@@ -1,13 +1,13 @@
 import { Component } from "react";
 declare type REValueProps = {
-    name: string;
+    id: string;
     value: number;
     unit: string | null;
     minvalue?: number;
     maxvalue?: number;
 };
 declare type REValueState = {
-    name: string;
+    id: string;
     value: number;
     unit: string | null;
     minvalue?: number;
@@ -17,9 +17,10 @@ declare type REValueState = {
 declare class REValue extends Component<REValueProps, REValueState> {
     state: REValueState;
     private ghostEle;
+    private befX;
     constructor(props: REValueProps, state: REValueState);
     mouseDown(event: any): boolean;
-    mouseUp(event: any): void;
+    mouseUp(): void;
     mouseDrag(_event: any): void;
     get actualunit(): string;
     render(): JSX.Element;
