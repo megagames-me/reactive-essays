@@ -12,8 +12,8 @@ type REValueState = {
   id: string;
   value: number;
   unit: string | null;
-  minvalue?: number;
-  maxvalue?: number;
+  minvalue: number;
+  maxvalue: number;
   active: boolean;
 };
 
@@ -60,14 +60,39 @@ class REValue extends Component<REValueProps, REValueState> {
   }
 
   mouseDrag(_event: any) {
-
-    _event.dataTransfer?.setDragImage(this.ghostEle, -99999, -99999);
     let val = this.state.value + (_event.pageX - this.befX);
-    if (this.befX !== -1 && !([0,1].includes(_event.pageX)) && this.state.minvalue ? val >= this.state.minvalue : true && this.state.maxvalue ? val <= this.state.maxvalue : true) {
-      console.log(_event)
-      this.setState(() => ({value: val }));
+    console.log()
+    if (_event.pageX == 0) {
+      _event.preventDefault()
     }
-    this.befX = _event.pageX;
+    else if (!(val >= this.state.minvalue)) {
+      console.log("minval", val, this.state.minvalue)
+      this.befX = _event.pageX;
+      _event.preventDefault()
+    }
+    else if (!(val <= this.state.maxvalue)) {
+      console.log("maxval", val, this.state.maxvalue)
+      this.befX = _event.pageX;
+      _event.preventDefault()
+    }
+    else if (this.befX == -1) {
+      this.befX = _event.pageX;
+      _event.preventDefault()
+    } else {
+      _event.dataTransfer?.setDragImage(this.ghostEle, -99999, -99999);
+    
+      
+
+
+      this.setState(() => ({value: val }));
+
+      if (_event.pageX !== 0) {
+        //console.log(_event.pageX);
+        this.befX = _event.pageX;
+      }
+    }
+    
+    
   }
 
   get actualunit() {

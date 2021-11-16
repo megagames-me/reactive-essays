@@ -10,8 +10,8 @@ declare type REValueState = {
     id: string;
     value: number;
     unit: string | null;
-    minvalue?: number;
-    maxvalue?: number;
+    minvalue: number;
+    maxvalue: number;
     active: boolean;
 };
 declare class REValue extends Component<REValueProps, REValueState> {
