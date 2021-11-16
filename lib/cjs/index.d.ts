@@ -21,7 +21,7 @@ declare class REValue extends Component<REValueProps, REValueState> {
     constructor(props: REValueProps, state: REValueState);
     mouseDown(event: any): boolean;
     mouseUp(): void;
-    mouseDrag(_event: any): void;
+    mouseDrag(_event: any): boolean;
     get actualunit(): string;
     render(): JSX.Element;
 }

@@ -60,14 +60,32 @@ class REValue extends Component<REValueProps, REValueState> {
   }
 
   mouseDrag(_event: any) {
-
-    _event.dataTransfer?.setDragImage(this.ghostEle, -99999, -99999);
     let val = this.state.value + (_event.pageX - this.befX);
-    if (this.befX !== -1 && !([0,1].includes(_event.pageX)) && this.state.minvalue ? val >= this.state.minvalue : true && this.state.maxvalue ? val <= this.state.maxvalue : true) {
-      console.log(_event)
+    console.log()
+    if (_event.pageX == 0) {
+      return false;
+    }
+    if (!(this.state.minvalue ? (val >= this.state.minvalue) : true)) {
+      return false;
+    }
+    if ( !(this.state.maxvalue ? (val <= this.state.maxvalue) : true)) {
+      return false;
+    }
+    if (this.befX == -1) {
+      return false;
+    }
+    _event.dataTransfer?.setDragImage(this.ghostEle, -99999, -99999);
+    
+    //console.log(this.state.value, _event.pageX, this.befX);
+    if (_event.pageX !== 0 && this.state.minvalue ? (val >= this.state.minvalue) : true && this.state.maxvalue ? (val <= this.state.maxvalue) : true) {
+
       this.setState(() => ({value: val }));
     }
-    this.befX = _event.pageX;
+    if (_event.pageX !== 0) {
+      //console.log(_event.pageX);
+      this.befX = _event.pageX;
+    }
+    return true;
   }
 
   get actualunit() {
