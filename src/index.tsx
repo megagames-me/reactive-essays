@@ -12,8 +12,8 @@ type REValueState = {
   id: string;
   value: number;
   unit: string | null;
-  minvalue?: number;
-  maxvalue?: number;
+  minvalue: number;
+  maxvalue: number;
   active: boolean;
 };
 
@@ -63,29 +63,36 @@ class REValue extends Component<REValueProps, REValueState> {
     let val = this.state.value + (_event.pageX - this.befX);
     console.log()
     if (_event.pageX == 0) {
-      return false;
+      _event.preventDefault()
     }
-    if (!(this.state.minvalue ? (val >= this.state.minvalue) : true)) {
-      return false;
+    else if (!(val >= this.state.minvalue)) {
+      console.log("minval", val, this.state.minvalue)
+      this.befX = _event.pageX;
+      _event.preventDefault()
     }
-    if ( !(this.state.maxvalue ? (val <= this.state.maxvalue) : true)) {
-      return false;
+    else if (!(val <= this.state.maxvalue)) {
+      console.log("maxval", val, this.state.maxvalue)
+      this.befX = _event.pageX;
+      _event.preventDefault()
     }
-    if (this.befX == -1) {
-      return false;
-    }
-    _event.dataTransfer?.setDragImage(this.ghostEle, -99999, -99999);
+    else if (this.befX == -1) {
+      this.befX = _event.pageX;
+      _event.preventDefault()
+    } else {
+      _event.dataTransfer?.setDragImage(this.ghostEle, -99999, -99999);
     
-    //console.log(this.state.value, _event.pageX, this.befX);
-    if (_event.pageX !== 0 && this.state.minvalue ? (val >= this.state.minvalue) : true && this.state.maxvalue ? (val <= this.state.maxvalue) : true) {
+      
+
 
       this.setState(() => ({value: val }));
+
+      if (_event.pageX !== 0) {
+        //console.log(_event.pageX);
+        this.befX = _event.pageX;
+      }
     }
-    if (_event.pageX !== 0) {
-      //console.log(_event.pageX);
-      this.befX = _event.pageX;
-    }
-    return true;
+    
+    
   }
 
   get actualunit() {
