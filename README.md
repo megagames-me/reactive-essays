@@ -1,5 +1,7 @@
 # reactive-essays
 
+### Developers: please work on `<REOutput />` at the REOutput branch - Anvay
+
 **WARNING:** reactive-essays is currently under huge development. DO NOT USE IT AT THIS TIME! 
 
 **This README is under construction.**
