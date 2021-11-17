@@ -1,12 +1,34 @@
+
+
 import React, { Component } from "react";
 
-type REValueProps = {
+/**
+ * Type for properties of `REValue`. 
+ */
+
+export type REValueProps = {
+  /**
+   * ID for variable. Use this to link your `REValue` to an output, like `REOutput`.
+   */
   id: string;
+  /**
+   * Default value for variable. You can set this so that when you first get onto your page, it shows your default value at first. And then, the user can change it.
+   */
   value: number;
+  /**
+   * The unit. If it is set, it will add an 's' to the end if it has multiple or zero. If it isn't set, it will just be a plain number.
+   */
   unit: string | null;
+  /**
+   * Minimum value for the value. The user cannot drag lower than this. If unset, it will default to 0. You can set this to negative infinity by inputting `minvalue={-Infinity}`
+   */
   minvalue?: number;
+  /**
+   * Maximum value for the value. The user cannot drag higher than this. If unset, it will default to Infinity.
+   */
   maxvalue?: number;
-};
+} & React.HTMLAttributes<HTMLElement>;
+
 
 type REValueState = {
   id: string;
@@ -17,10 +39,25 @@ type REValueState = {
   active: boolean;
 };
 
-
-class REValue extends Component<REValueProps, REValueState> {
+/**
+ * Component for draggable variable
+ * 
+ * Example without output:
+ * ```tsx
+ * return (
+ *    <div className="app">
+ *      I ate <REValue id="cookies" value={3} unit="cookie" minvalue={1} maxvalue={15} /> today.
+ *    </div>
+ * )
+ * ```
+ * 
+ * Example with output:
+ * ```tsx
+ * // add later
+ * ```
+ */
+export class REValue extends Component<REValueProps, REValueState> {
   state: REValueState = {
-    // optional second annotation for better type inference
     id: this.props.id,
     value: this.props.value,
     unit: this.props.unit,
@@ -90,6 +127,7 @@ class REValue extends Component<REValueProps, REValueState> {
         //console.log(_event.pageX);
         this.befX = _event.pageX;
       }
+      
     }
     
     
@@ -112,4 +150,3 @@ const REOutput = ({ name }: { name: string }): JSX.Element => (
   <div>Hey {name}, say hello to TypeScript.</div>
 );
 */
-export { REValue };
