@@ -9,8 +9,7 @@
   "author": "Anvay Mathur",
   "license": "MIT",
   "devDependencies": {
-    "typescript": "^4.4.4",
-    "webpack": "^5.64.1"
+    "typescript": "^4.4.4"
   },
   "scripts": {
     "build": "yarn build:esm && yarn build:cjs",

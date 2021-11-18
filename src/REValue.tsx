@@ -1,6 +1,7 @@
-
-
 import React, { Component } from "react";
+
+import { trigger } from "./Events"
+import { StyliseN } from "./index";
 
 /**
  * Type for properties of `REValue`. 
@@ -18,7 +19,7 @@ export type REValueProps = {
   /**
    * The unit. If it is set, it will add an 's' to the end if it has multiple or zero. If it isn't set, it will just be a plain number.
    */
-  unit: string | null;
+  unit?: string;
   /**
    * Minimum value for the value. The user cannot drag lower than this. If unset, it will default to 0. You can set this to negative infinity by inputting `minvalue={-Infinity}`
    */
@@ -27,16 +28,19 @@ export type REValueProps = {
    * Maximum value for the value. The user cannot drag higher than this. If unset, it will default to Infinity.
    */
   maxvalue?: number;
-} & React.HTMLAttributes<HTMLElement>;
+  scalingrate?: number;
+  stylish?: boolean;
+} & React.HTMLAttributes<HTMLSpanElement>;
 
 
 type REValueState = {
   id: string;
   value: number;
-  unit: string | null;
+  unit?: string;
   minvalue: number;
   maxvalue: number;
   active: boolean;
+  stylish: boolean;
 };
 
 /**
@@ -64,6 +68,7 @@ export class REValue extends Component<REValueProps, REValueState> {
     minvalue: this.props.minvalue ? this.props.minvalue : 0,
     maxvalue: this.props.maxvalue ? this.props.maxvalue : Infinity,
     active: false,
+    stylish: typeof this.props.stylish == "boolean" ? this.props.stylish : true,
   };
 
   private ghostEle: HTMLElement;
@@ -76,8 +81,12 @@ export class REValue extends Component<REValueProps, REValueState> {
     this.mouseUp = this.mouseUp.bind(this);
     this.mouseDrag = this.mouseDrag.bind(this);
     this.befX = -1;
+    this.handleLoad = this.handleLoad.bind(this);
   }
-
+  handleLoad() {
+    console.log("LOADED")
+    trigger(`${this.state.id}:drag`, {val: this.state.value});
+  }
   mouseDown(event: any) {
     this.ghostEle = document.createElement("div");
     this.ghostEle.innerHTML = "ghost";
@@ -96,19 +105,25 @@ export class REValue extends Component<REValueProps, REValueState> {
 
   }
 
+  componentDidMount() {
+    window.addEventListener("load", this.handleLoad);
+  }
+  componentWillUnmount() {
+    window.removeEventListener("load", this.handleLoad);
+  }
   mouseDrag(_event: any) {
-    let val = this.state.value + (_event.pageX - this.befX);
+    let val = Math.round(this.state.value + (_event.pageX - this.befX) * (typeof this.props.scalingrate == "number" ? this.props.scalingrate : 1));
     console.log()
     if (_event.pageX == 0) {
       _event.preventDefault()
     }
     else if (!(val >= this.state.minvalue)) {
-      console.log("minval", val, this.state.minvalue)
+      //console.log("minval", val, this.state.minvalue)
       this.befX = _event.pageX;
       _event.preventDefault()
     }
     else if (!(val <= this.state.maxvalue)) {
-      console.log("maxval", val, this.state.maxvalue)
+      //console.log("maxval", val, this.state.maxvalue)
       this.befX = _event.pageX;
       _event.preventDefault()
     }
@@ -127,7 +142,7 @@ export class REValue extends Component<REValueProps, REValueState> {
         //console.log(_event.pageX);
         this.befX = _event.pageX;
       }
-      
+      trigger(`${this.state.id}:drag`, {val: this.state.value});
     }
     
     
@@ -139,7 +154,7 @@ export class REValue extends Component<REValueProps, REValueState> {
 
   render() {
     //console.log("rendered");
-    return <span className="REValue" id={this.state.id} draggable={true} onDragStart={this.mouseDown} onDragEnd={this.mouseUp} onDrag={this.mouseDrag}>{this.state.value} {this.actualunit}</span>;
+    return <span className="REValue" id={this.state.id} draggable={true} onDragStart={this.mouseDown} onDragEnd={this.mouseUp} onDrag={this.mouseDrag}>{this.state.stylish ? StyliseN(this.state.value) : this.state.value} {this.actualunit}</span>;
     
   }
 }
