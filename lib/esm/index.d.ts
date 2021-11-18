@@ -1,28 +1,6 @@
-import { Component } from "react";
-declare type REValueProps = {
-    id: string;
-    value: number;
-    unit: string | null;
-    minvalue?: number;
-    maxvalue?: number;
-};
-declare type REValueState = {
-    id: string;
-    value: number;
-    unit: string | null;
-    minvalue: number;
-    maxvalue: number;
-    active: boolean;
-};
-declare class REValue extends Component<REValueProps, REValueState> {
-    state: REValueState;
-    private ghostEle;
-    private befX;
-    constructor(props: REValueProps, state: REValueState);
-    mouseDown(event: any): boolean;
-    mouseUp(): void;
-    mouseDrag(_event: any): void;
-    get actualunit(): string;
-    render(): JSX.Element;
-}
-export { REValue };
+import { REValue, REValueProps } from "./REValue";
+import { REOutputProps, REOutput } from "./REOutput";
+import { REApp, REAppProps } from "./REApp";
+declare function AddS(stringToAdd: string, val: number): string;
+declare function StyliseN(number: number): string;
+export { REValue, REValueProps, REOutputProps, REOutput, REApp, REAppProps, AddS, StyliseN };
