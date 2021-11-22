@@ -1,5 +1,7 @@
 # reactive-essays
 
+## DEVELOPERS WORK ON REIF BRANCH
+
 ### Developers: we need to continue to add features from Tangle. REOutput is complete. Also, please add custom functions to REValue like REOutput
 
 **WARNING:** reactive-essays is currently under huge development. DO NOT USE IT AT THIS TIME! 
