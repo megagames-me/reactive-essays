@@ -1,0 +1,15 @@
+{
+	"compilerOptions": {
+		"target": "es2021",
+  		"lib": ["es2021", "dom"],
+		"moduleResolution": "node",
+		"alwaysStrict": true,
+		"strict": true,
+		"jsx": "react-jsx",
+		"outDir": "dist",
+		"declaration": true,
+		"allowSyntheticDefaultImports": true
+	},
+	"include": ["src/**/*"],
+	"exclude": ["dist/**/*", "node_modules/**/*", "examples/**/*", "src/old/**/*"]
+}
