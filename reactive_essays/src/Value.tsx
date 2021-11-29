@@ -107,6 +107,8 @@ const Value: React.FC<ValueProps> = (props: ValueProps) => {
 		event.dataTransfer.effectAllowed = "none";
 		// make it active
 		setActive(true);
+
+		mouseDrag(event);
 	}
 	function mouseUp(event: any) {
 		// remove ghost element
@@ -141,6 +143,7 @@ const Value: React.FC<ValueProps> = (props: ValueProps) => {
 			// if its valid, do this
 
 			//continue setting position of ghost image
+
 			_event.dataTransfer?.setDragImage(ghostEle, -99999, -99999);
 
 			// set state of variable and also call render
@@ -160,7 +163,7 @@ const Value: React.FC<ValueProps> = (props: ValueProps) => {
 	}
     const propstoadd = (({ id, value, unit, minvalue, maxvalue, scalingrate, stylish, getoutputtext, getactualunit, round, ...o }) => o)(props);
 
-	return <span {...propstoadd} data-value={value} className={"REValue " + (props.className ? " " + props.className : "")} id={props.id} draggable={true} onDragStart={mouseDown} onDragEnd={mouseUp} onDrag={mouseDrag}>{props.getoutputtext ? props.getoutputtext(Math.round(value / newval.round) * newval.round, actualunit()) : (newval.stylish ? StyliseN(Math.round(value / newval.round) * newval.round) : Math.round(value / newval.round) * newval.round)} {actualunit()}</span>;
+	return <span {...propstoadd} data-value={value} className={"REValue " + (props.className ? " " + props.className : "")} id={props.id} draggable={true} onDragStart={mouseDown} onDragEnd={mouseUp}>{props.getoutputtext ? props.getoutputtext(Math.round(value / newval.round) * newval.round, actualunit()) : (newval.stylish ? StyliseN(Math.round(value / newval.round) * newval.round) : Math.round(value / newval.round) * newval.round)} {actualunit()}</span>;
 }
 
 export default Value;

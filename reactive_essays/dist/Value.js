@@ -67,6 +67,7 @@ const Value = (props) => {
         event.dataTransfer.effectAllowed = "none";
         // make it active
         setActive(true);
+        mouseDrag(event);
     }
     function mouseUp(event) {
         // remove ghost element
@@ -111,6 +112,6 @@ const Value = (props) => {
         }
     }
     const propstoadd = (({ id, value, unit, minvalue, maxvalue, scalingrate, stylish, getoutputtext, getactualunit, round, ...o }) => o)(props);
-    return _jsxs("span", { ...propstoadd, "data-value": value, className: "REValue " + (props.className ? " " + props.className : ""), id: props.id, draggable: true, onDragStart: mouseDown, onDragEnd: mouseUp, onDrag: mouseDrag, children: [props.getoutputtext ? props.getoutputtext(Math.round(value / newval.round) * newval.round, actualunit()) : (newval.stylish ? StyliseN(Math.round(value / newval.round) * newval.round) : Math.round(value / newval.round) * newval.round), " ", actualunit()] }, void 0);
+    return _jsxs("span", { ...propstoadd, "data-value": value, className: "REValue " + (props.className ? " " + props.className : ""), id: props.id, draggable: true, onDragStart: mouseDown, onDragEnd: mouseUp, children: [props.getoutputtext ? props.getoutputtext(Math.round(value / newval.round) * newval.round, actualunit()) : (newval.stylish ? StyliseN(Math.round(value / newval.round) * newval.round) : Math.round(value / newval.round) * newval.round), " ", actualunit()] }, void 0);
 };
 export default Value;
