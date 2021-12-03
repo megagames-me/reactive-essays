@@ -12,6 +12,6 @@ const App = (props) => {
             window.removeEventListener("load", handleLoad);
         };
     });
-    return (_jsx("div", { ...props, className: "REApp " + props.className, style: { visibility: (visible ? "visible" : "hidden"), ...props.style }, children: props.children }, void 0));
+    return (_jsx("div", { ...props, className: "reactive-essays-css-app " + props.className, style: { visibility: (visible ? "visible" : "hidden"), ...props.style }, children: props.children }, void 0));
 };
 export default App;

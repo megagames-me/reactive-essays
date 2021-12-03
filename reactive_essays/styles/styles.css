@@ -1,0 +1,21 @@
+
+.reactive-essays-css-value {
+    color: dodgerblue;
+    border-bottom: dodgerblue 1px dashed;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;    
+    cursor: col-resize;
+    transition-duration: 1s;
+
+}
+
+.reactive-essays-css-value:hover{
+    cursor: col-resize;
+    color: rgb(28, 128, 228);
+    border-bottom: rgb(28, 128, 228) 1px dashed;
+} 
+.reactive-essays-css-value:focus {
+    cursor: col-resize;
+}

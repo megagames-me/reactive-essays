@@ -1,4 +1,4 @@
-import People from "./people";
+import People from "./People";
 import App from "./App";
 import Value from "./Value";
 import { AddS, StyliseN } from "./helpers";

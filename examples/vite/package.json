@@ -2,14 +2,14 @@
   "name": "react",
   "version": "0.0.0",
   "scripts": {
-    "dev": "vite",
+    "dev": "yarn install && yarn upgrade && vite",
     "build": "vite build",
     "serve": "vite preview"
   },
   "dependencies": {
     "react": "^17.0.0",
     "react-dom": "^17.0.0",
-    "reactive_essays": "file:./../../reactive_essays"
+    "reactive_essays": "link:../../reactive_essays"
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^1.0.0",

@@ -5,7 +5,8 @@
   "main": "dist/index.js",
   "types": "dist/index.d.js",
   "directories": {
-    "example": "examples"
+    "example": "examples",
+    "styles": "styles"
   },
   "scripts": {
     "dev": "tsc --watch",

@@ -17,7 +17,7 @@ const App: React.FC<AppProps> = (props: AppProps) => {
             window.removeEventListener("load", handleLoad);
         };
       });
-    return (<div {...props} className={"REApp " + props.className} style={{visibility: (visible ? "visible" : "hidden"), ...props.style}}>
+    return (<div {...props} className={"reactive-essays-css-app " + props.className} style={{visibility: (visible ? "visible" : "hidden"), ...props.style}}>
         {props.children}
     </div>);
 }
