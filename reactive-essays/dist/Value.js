@@ -10,16 +10,16 @@ import { StyliseN, AddS } from "./index";
  * @param {string} id ID of item. Can reference in other components
  * @param {number} value Default value of dragger
  * @param {string} [unit] The unit of the number. Don't add an 'S' at the end. _Optional_
- * @param {number} [minvalue] The minimum value of the dragger. You cannot set it below this. Default: `{0}`
- * @param {number} [maxvalue] The maximum value of the dragger. You cannot set it above this. Default: `{Infinity}`
- * @param {number} [scalingrate] The rate at which the number scales. It is a scalar. If `scalingrate=0.1`, it will scale 10 times slower. If it's `10`, it will scale 10 times faster. `-1` means that scaling is reversed. Default: `{1}`
+ * @param {number} [minValue] The minimum value of the dragger. You cannot set it below this. Default: `{0}`
+ * @param {number} [maxValue] The maximum value of the dragger. You cannot set it above this. Default: `{Infinity}`
+ * @param {number} [scalingRate] The rate at which the number scales. It is a scalar. If `scalingRate=0.1`, it will scale 10 times slower. If it's `10`, it will scale 10 times faster. `-1` means that scaling is reversed. Default: `{1}`
  * @param {boolean} [stylish] If numbers should have decimals or commas. Default: `{true}`
  *
  * Example without output:
  * ```tsx
  * return (
  *    <REApp>
- *      I ate <REValue id="cookies" value={3} unit="cookie" minvalue={1} props.maxvalue={15} /> today.
+ *      I ate <REValue id="cookies" value={3} unit="cookie" minValue={1} props.maxValue={15} /> today.
  *    </REApp>
  * )
  * ```
@@ -35,10 +35,10 @@ const Value = (props) => {
     const [ghostEle, setGhostEle] = React.useState(document.createElement('div'));
     const [befX, setBefX] = React.useState(-1);
     const newval = {
-        minvalue: props.minvalue ? props.minvalue : 0,
-        maxvalue: props.maxvalue ? props.maxvalue : Infinity,
+        minValue: props.minValue ? props.minValue : 0,
+        maxValue: props.maxValue ? props.maxValue : Infinity,
         round: props.round ? props.round : 1,
-        scalingrate: props.scalingrate ? props.scalingrate : 1,
+        scalingRate: props.scalingRate ? props.scalingRate : 1,
         stylish: props.stylish ? props.stylish : true,
     };
     let handleLoad = () => {
@@ -50,10 +50,10 @@ const Value = (props) => {
             window.removeEventListener("load", handleLoad);
         };
     });
-    function actualunit() {
+    function actualUnit() {
         // custom stuff
-        if (props.getactualunit) {
-            return props.getactualunit(value, props.unit);
+        if (props.getActualUnit) {
+            return props.getActualUnit(value, props.unit);
         }
         return props.unit ? (AddS(props.unit, value)) : "";
     }
@@ -79,16 +79,16 @@ const Value = (props) => {
     };
     let mouseDrag = (event) => {
         // find value to set to beforehand
-        const val = value + ((event.pageX - befX) * newval.scalingrate);
+        const val = value + ((event.pageX - befX) * newval.scalingRate);
         // just to be safe prevent escalation of event
         if (event.pageX == 0) {
             event.preventDefault();
         }
-        else if (!(val >= newval.minvalue)) {
+        else if (!(val >= newval.minValue)) {
             setBefX(event.pageX);
             event.preventDefault();
         }
-        else if (!(val <= newval.maxvalue)) {
+        else if (!(val <= newval.maxValue)) {
             setBefX(event.pageX);
             event.preventDefault();
         }
@@ -110,11 +110,11 @@ const Value = (props) => {
             trigger(`${props.id}:change`, { val: value, id: props.id });
         }
     };
-    const propstoadd = (({ id, value, unit, minvalue, maxvalue, scalingrate, stylish, getoutputtext, getactualunit, round, ...o }) => o)(props);
-    return (_jsxs("span", { ...propstoadd, "data-value": value, className: "reactive-essays-css-value " + (props.className ? " " + props.className : ""), id: props.id, draggable: true, onDragStart: mouseDown, onDragEnd: mouseUp, onDrag: mouseDrag, children: [props.getoutputtext
-                ? props.getoutputtext(Math.round(value / newval.round) * newval.round, actualunit()) :
+    const propstoadd = (({ id, value, unit, minValue, maxValue, scalingRate, stylish, getOutputText, getActualUnit, round, ...o }) => o)(props);
+    return (_jsxs("span", { ...propstoadd, "data-value": value, className: "reactive-essays-css-value " + (props.className ? " " + props.className : ""), id: props.id, draggable: true, onDragStart: mouseDown, onDragEnd: mouseUp, onDrag: mouseDrag, children: [props.getOutputText
+                ? props.getOutputText(Math.round(value / newval.round) * newval.round, actualUnit()) :
                 (newval.stylish ?
                     StyliseN(Math.round(value / newval.round) * newval.round) :
-                    Math.round(value / newval.round) * newval.round), " ", actualunit()] }, void 0));
+                    Math.round(value / newval.round) * newval.round), " ", actualUnit()] }, void 0));
 };
 export default Value;

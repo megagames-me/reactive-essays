@@ -9,7 +9,7 @@
   "dependencies": {
     "react": "^17.0.0",
     "react-dom": "^17.0.0",
-    "reactive_essays": "link:../../reactive_essays"
+    "reactive_essays": "link:../../reactive-essays"
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^1.0.0",

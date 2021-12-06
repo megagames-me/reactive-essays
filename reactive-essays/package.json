@@ -1,5 +1,5 @@
 {
-  "name": "reactive_essays",
+  "name": "reactive-essays",
   "version": "1.0.0",
   "description": "A TypeScript + React.js library, inspired by Tangle. This is a tool to make your essays interactive and a systems thinking tool. ",
   "main": "dist/index.js",

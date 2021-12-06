@@ -22,34 +22,34 @@ interface ValueProps extends React.HTMLAttributes<HTMLSpanElement> {
      */
     unit?: string;
     /**
-     * Minimum value for the value. The user cannot drag lower than this. If unset, it will default to 0. You can set this to negative infinity by inputting `props.minvalue={-Infinity}`
+     * Minimum value for the value. The user cannot drag lower than this. If unset, it will default to 0. You can set this to negative infinity by inputting `props.minValue={-Infinity}`
      */
-    minvalue?: number;
+    minValue?: number;
     /**
      * Maximum value for the value. The user cannot drag higher than this. If unset, it will default to Infinity.
      */
-    maxvalue?: number;
-    scalingrate?: number;
+    maxValue?: number;
+    scalingRate?: number;
     stylish?: boolean;
     round?: number;
-    getoutputtext?: ValueCustomText;
-    getactualunit?: ValueCustomUnit;
+    getOutputText?: ValueCustomText;
+    getActualUnit?: ValueCustomUnit;
 }
 /**
  * Component for draggable variable
  * @param {string} id ID of item. Can reference in other components
  * @param {number} value Default value of dragger
  * @param {string} [unit] The unit of the number. Don't add an 'S' at the end. _Optional_
- * @param {number} [minvalue] The minimum value of the dragger. You cannot set it below this. Default: `{0}`
- * @param {number} [maxvalue] The maximum value of the dragger. You cannot set it above this. Default: `{Infinity}`
- * @param {number} [scalingrate] The rate at which the number scales. It is a scalar. If `scalingrate=0.1`, it will scale 10 times slower. If it's `10`, it will scale 10 times faster. `-1` means that scaling is reversed. Default: `{1}`
+ * @param {number} [minValue] The minimum value of the dragger. You cannot set it below this. Default: `{0}`
+ * @param {number} [maxValue] The maximum value of the dragger. You cannot set it above this. Default: `{Infinity}`
+ * @param {number} [scalingRate] The rate at which the number scales. It is a scalar. If `scalingRate=0.1`, it will scale 10 times slower. If it's `10`, it will scale 10 times faster. `-1` means that scaling is reversed. Default: `{1}`
  * @param {boolean} [stylish] If numbers should have decimals or commas. Default: `{true}`
  *
  * Example without output:
  * ```tsx
  * return (
  *    <REApp>
- *      I ate <REValue id="cookies" value={3} unit="cookie" minvalue={1} props.maxvalue={15} /> today.
+ *      I ate <REValue id="cookies" value={3} unit="cookie" minValue={1} props.maxValue={15} /> today.
  *    </REApp>
  * )
  * ```

@@ -26,19 +26,19 @@ interface ValueProps extends React.HTMLAttributes<HTMLSpanElement> {
 	 */
 	unit?: string;
 	/**
-	 * Minimum value for the value. The user cannot drag lower than this. If unset, it will default to 0. You can set this to negative infinity by inputting `props.minvalue={-Infinity}`
+	 * Minimum value for the value. The user cannot drag lower than this. If unset, it will default to 0. You can set this to negative infinity by inputting `props.minValue={-Infinity}`
 	 */
-	minvalue?: number;
+	minValue?: number;
 	/**
 	 * Maximum value for the value. The user cannot drag higher than this. If unset, it will default to Infinity.
 	 */
-	maxvalue?: number;
-	scalingrate?: number;
+	maxValue?: number;
+	scalingRate?: number;
 	stylish?: boolean;
 	// number where it rounds to. default 1
 	round?: number;
-	getoutputtext?: ValueCustomText;
-	getactualunit?: ValueCustomUnit;
+	getOutputText?: ValueCustomText;
+	getActualUnit?: ValueCustomUnit;
 };
 
 /**
@@ -46,16 +46,16 @@ interface ValueProps extends React.HTMLAttributes<HTMLSpanElement> {
  * @param {string} id ID of item. Can reference in other components
  * @param {number} value Default value of dragger
  * @param {string} [unit] The unit of the number. Don't add an 'S' at the end. _Optional_
- * @param {number} [minvalue] The minimum value of the dragger. You cannot set it below this. Default: `{0}`
- * @param {number} [maxvalue] The maximum value of the dragger. You cannot set it above this. Default: `{Infinity}`
- * @param {number} [scalingrate] The rate at which the number scales. It is a scalar. If `scalingrate=0.1`, it will scale 10 times slower. If it's `10`, it will scale 10 times faster. `-1` means that scaling is reversed. Default: `{1}`
+ * @param {number} [minValue] The minimum value of the dragger. You cannot set it below this. Default: `{0}`
+ * @param {number} [maxValue] The maximum value of the dragger. You cannot set it above this. Default: `{Infinity}`
+ * @param {number} [scalingRate] The rate at which the number scales. It is a scalar. If `scalingRate=0.1`, it will scale 10 times slower. If it's `10`, it will scale 10 times faster. `-1` means that scaling is reversed. Default: `{1}`
  * @param {boolean} [stylish] If numbers should have decimals or commas. Default: `{true}`
  * 
  * Example without output:
  * ```tsx
  * return (
  *    <REApp>
- *      I ate <REValue id="cookies" value={3} unit="cookie" minvalue={1} props.maxvalue={15} /> today.
+ *      I ate <REValue id="cookies" value={3} unit="cookie" minValue={1} props.maxValue={15} /> today.
  *    </REApp>
  * )
  * ```
@@ -73,10 +73,10 @@ const Value: React.FC<ValueProps> = (props: ValueProps) => {
 	const [befX, setBefX] = React.useState(-1);
 
     const newval = {
-        minvalue: props.minvalue ? props.minvalue : 0,
-        maxvalue: props.maxvalue ? props.maxvalue : Infinity,
+        minValue: props.minValue ? props.minValue : 0,
+        maxValue: props.maxValue ? props.maxValue : Infinity,
         round: props.round ? props.round : 1,
-        scalingrate: props.scalingrate ? props.scalingrate : 1,
+        scalingRate: props.scalingRate ? props.scalingRate : 1,
         stylish: props.stylish ? props.stylish: true,
     }
     
@@ -96,10 +96,10 @@ const Value: React.FC<ValueProps> = (props: ValueProps) => {
         }
     });
 
-    function actualunit() {
+    function actualUnit() {
         // custom stuff
-		if (props.getactualunit) {
-			return props.getactualunit(value, props.unit);
+		if (props.getActualUnit) {
+			return props.getActualUnit(value, props.unit);
 		}
 		return props.unit ? (AddS(props.unit, value)) : "";
     }
@@ -132,18 +132,18 @@ const Value: React.FC<ValueProps> = (props: ValueProps) => {
 	}
 	let mouseDrag = (event: any) => {
 		// find value to set to beforehand
-		const val = value + ((event.pageX - befX) * newval.scalingrate);
+		const val = value + ((event.pageX - befX) * newval.scalingRate);
 
 		// just to be safe prevent escalation of event
 		if (event.pageX == 0) {
 			event.preventDefault();
 		}
-		else if (!(val >= newval.minvalue)) {
+		else if (!(val >= newval.minValue)) {
 
 			setBefX(event.pageX);
 			event.preventDefault();
 		}
-		else if (!(val <= newval.maxvalue)) {
+		else if (!(val <= newval.maxValue)) {
 			setBefX(event.pageX);
 			event.preventDefault();
 		}
@@ -171,18 +171,18 @@ const Value: React.FC<ValueProps> = (props: ValueProps) => {
 		
 		
 	}
-    const propstoadd = (({ id, value, unit, minvalue, maxvalue, scalingrate, stylish, getoutputtext, getactualunit, round, ...o }) => o)(props);
+    const propstoadd = (({ id, value, unit, minValue, maxValue, scalingRate, stylish, getOutputText, getActualUnit, round, ...o }) => o)(props);
 
 	return (<span {...propstoadd} data-value={value} className={"reactive-essays-css-value " + (props.className ? " " + props.className : "")} 
 		id={props.id} 
 		draggable={true} 
 		onDragStart={mouseDown} 
 		onDragEnd={mouseUp}
-		onDrag={mouseDrag}>{props.getoutputtext 
-			? props.getoutputtext(Math.round(value / newval.round) * newval.round, actualunit()) : 
+		onDrag={mouseDrag}>{props.getOutputText 
+			? props.getOutputText(Math.round(value / newval.round) * newval.round, actualUnit()) : 
 			(newval.stylish ? 
 				StyliseN(Math.round(value / newval.round) * newval.round) : 
-				Math.round(value / newval.round) * newval.round)} {actualunit()}
+				Math.round(value / newval.round) * newval.round)} {actualUnit()}
 	</span>);
 }
 
