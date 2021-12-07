@@ -76,13 +76,18 @@ const Output: FC<OutputProps> = (props: OutputProps) => {
 
 	React.useEffect(() => {
 		for (const val of srefs) {
-			editInputval(val, 0);
-			on(`${val}:change`, handleValueChange);
+			if (document.querySelector("#" + val)) {
+				editInputval(val, 0);
+				on(`${val}:change`, handleValueChange);
+			}
 		}
 
         return function cleanup() {
             for (const val of srefs) {
-				off(`${val}:change`, handleValueChange);
+				if (document.querySelector("#" + val)) {
+					off(`${val}:change`, handleValueChange);
+				}
+				
 			}
         }
     }, []);
