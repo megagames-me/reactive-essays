@@ -16,4 +16,10 @@ function trigger(eventType, data) {
     const event = new CustomEvent(eventType, { detail: data });
     document.dispatchEvent(event);
 }
-export { on, once, off, trigger };
+function AddS(stringToAdd, val) {
+    return val == 1 ? stringToAdd : stringToAdd + "s";
+}
+function StyliseN(number) {
+    return number.toLocaleString();
+}
+export { on, once, off, trigger, AddS, StyliseN };
