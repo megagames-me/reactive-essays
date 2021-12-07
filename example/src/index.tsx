@@ -7,5 +7,6 @@ ReactDOM.render(
   <React.StrictMode>
     <App />
   </React.StrictMode>,
-  document.querySelector('#__reactive_essays_app')
+  document.getElementById('root')
 );
+
