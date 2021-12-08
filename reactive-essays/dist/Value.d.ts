@@ -49,7 +49,7 @@ interface ValueProps extends React.HTMLAttributes<HTMLSpanElement> {
  * ```tsx
  * return (
  *    <REApp>
- *      I ate <REValue id="cookies" value={3} unit="cookie" minValue={1} props.maxValue={15} /> today.
+ *      I ate <REValue id="cookies" value={3} unit="cookie" minValue={1} maxValue={15} /> today.
  *    </REApp>
  * )
  * ```

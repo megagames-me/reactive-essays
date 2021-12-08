@@ -1,19 +1,20 @@
 import React, { FC } from "react";
+interface OutputInputVals {
+    [index: string]: number | boolean;
+}
 interface OutputModifier {
-    (inputval: {
-        [index: string]: number;
-    }): number;
+    (inputval: OutputInputVals): number;
 }
 interface OutputCustomText {
-    (val: number, unit: string): string;
+    (val: number | boolean, unit: string): string;
 }
 interface OutputCustomUnit {
-    (val: number, rawunit?: string): string;
+    (val: number | boolean, rawunit?: string): string;
 }
 interface OutputProps extends React.HTMLAttributes<HTMLSpanElement> {
     refs: Array<string> | string;
     unit?: string;
-    getValue: OutputModifier | number;
+    getValue?: OutputModifier | number;
     getOutputText?: OutputCustomText;
     getActualUnit?: OutputCustomUnit;
     stylish?: boolean;

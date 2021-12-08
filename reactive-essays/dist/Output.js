@@ -1,11 +1,6 @@
 import { jsx as _jsx } from "react/jsx-runtime";
 import React from "react";
 import { on, off, AddS, StyliseN } from "./helpers";
-;
-;
-;
-;
-;
 const Output = (props) => {
     const [srefs, setSrefs] = React.useState(typeof props.refs == "object" ? props.refs : [props.refs]);
     const [inputvals, setInputvals] = React.useState({});
@@ -15,7 +10,7 @@ const Output = (props) => {
             kv[key] = val;
             return {
                 ...prevstate,
-                ...kv
+                ...kv,
             };
         });
     }
@@ -23,29 +18,53 @@ const Output = (props) => {
         if (typeof props.getValue == "function") {
             return props.getValue(inputvals);
         }
+        else if (typeof Object.values(inputvals)[0] == "number") {
+            return (Number(props.getValue) * Object.values(inputvals)[0]);
+        }
         else {
-            return Number(props.getValue) * Object.values(inputvals)[0];
+            return Object.values(inputvals)[0];
         }
     }
     function getActualUnit() {
-        if (!props.getActualUnit) {
+        if (!props.getActualUnit && typeof getValue() == "number") {
             return props.unit ? AddS(props.unit, getValue()) : "";
         }
+        else if (typeof getValue() == "number" && props.getActualUnit) {
+            return props.unit
+                ? props.getActualUnit(getValue(), props.unit)
+                : props.getActualUnit(getValue());
+        }
+        else if (props.getActualUnit) {
+            return props.unit
+                ? props.getActualUnit(getValue(), props.unit)
+                : props.getActualUnit(getValue());
+        }
         else {
-            return props.unit ? props.getActualUnit(getValue(), props.unit) : props.getActualUnit(getValue());
+            return "is " + getValue();
         }
     }
     function getFullText() {
-        if (!props.getOutputText) {
+        if (!props.getOutputText && typeof getValue() == "number") {
             if (props.stylish) {
-                return StyliseN(getValue()) + (getActualUnit() === null ? "" : " " + getActualUnit());
+                return (StyliseN(getValue()) +
+                    (getActualUnit() === null ? "" : " " + getActualUnit()));
             }
             else {
-                return getValue() + (getActualUnit() === null ? "" : " " + getActualUnit());
+                return (getValue() +
+                    (getActualUnit() === null ? "" : " " + getActualUnit()));
             }
         }
-        else {
+        else if (props.getOutputText) {
             return props.getOutputText(getValue(), getActualUnit());
+        }
+        else {
+            if (props.unit) {
+                return props.unit + " " + getActualUnit();
+            }
+            else {
+                return ("[HEY PROGRAMMER! I think you forgot to input a unit for this. The unit will replace the area between these square brackets.] " +
+                    getActualUnit());
+            }
         }
     }
     function handleValueChange(e) {
@@ -67,12 +86,13 @@ const Output = (props) => {
         };
     }, []);
     const propstoadd = (({ getValue, getOutputText, getActualUnit, stylish, unit, refs, ...o }) => o)(props);
-    return _jsx("span", { ...propstoadd, "data-value": isNaN(getValue()) ? 0 : getValue(), className: "REOutput" +
-            (props.className ?
-                " " + props.className
-                : ""), children: getFullText() }, void 0);
+    return (_jsx("span", { ...propstoadd, "data-value": typeof getValue() == "number"
+            ? isNaN(getValue())
+                ? 0
+                : getValue()
+            : getValue(), className: "REOutput" + (props.className ? " " + props.className : ""), children: getFullText() }, void 0));
 };
 Output.defaultProps = {
-    stylish: true
+    stylish: true,
 };
 export default Output;

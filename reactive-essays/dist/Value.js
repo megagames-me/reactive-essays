@@ -2,9 +2,6 @@ import { jsxs as _jsxs } from "react/jsx-runtime";
 import React from "react";
 import { trigger } from "./helpers";
 import { StyliseN, AddS } from "./index";
-;
-;
-;
 /**
  * Component for draggable variable
  * @param {string} id ID of item. Can reference in other components
@@ -19,7 +16,7 @@ import { StyliseN, AddS } from "./index";
  * ```tsx
  * return (
  *    <REApp>
- *      I ate <REValue id="cookies" value={3} unit="cookie" minValue={1} props.maxValue={15} /> today.
+ *      I ate <REValue id="cookies" value={3} unit="cookie" minValue={1} maxValue={15} /> today.
  *    </REApp>
  * )
  * ```
@@ -32,7 +29,7 @@ import { StyliseN, AddS } from "./index";
 const Value = (props) => {
     const [value, setValue] = React.useState(props.value);
     const [active, setActive] = React.useState(false);
-    const [ghostEle, setGhostEle] = React.useState(document.createElement('div'));
+    const [ghostEle, setGhostEle] = React.useState(document.createElement("div"));
     const [befX, setBefX] = React.useState(-1);
     const newval = {
         minValue: props.minValue ? props.minValue : 0,
@@ -55,7 +52,7 @@ const Value = (props) => {
         if (props.getActualUnit) {
             return props.getActualUnit(value, props.unit);
         }
-        return props.unit ? (AddS(props.unit, value)) : "";
+        return props.unit ? AddS(props.unit, value) : "";
     }
     let mouseDown = (event) => {
         // remove ghost element
@@ -79,7 +76,7 @@ const Value = (props) => {
     };
     let mouseDrag = (event) => {
         // find value to set to beforehand
-        const val = value + ((event.pageX - befX) * newval.scalingRate);
+        const val = value + (event.pageX - befX) * newval.scalingRate;
         // just to be safe prevent escalation of event
         if (event.pageX == 0) {
             event.preventDefault();
@@ -102,7 +99,7 @@ const Value = (props) => {
             event.dataTransfer?.setDragImage(ghostEle, -99999, -99999);
             // set state of variable and also call render
             setValue(val);
-            // set befX 
+            // set befX
             if (event.pageX !== 0) {
                 setBefX(event.pageX);
             }
@@ -111,10 +108,11 @@ const Value = (props) => {
         }
     };
     const propstoadd = (({ id, value, unit, minValue, maxValue, scalingRate, stylish, getOutputText, getActualUnit, round, ...o }) => o)(props);
-    return (_jsxs("span", { ...propstoadd, "data-value": value, className: "reactive-essays-css-value " + (props.className ? " " + props.className : ""), id: props.id, draggable: true, onDragStart: mouseDown, onDragEnd: mouseUp, onDrag: mouseDrag, children: [props.getOutputText
-                ? props.getOutputText(Math.round(value / newval.round) * newval.round, actualUnit()) :
-                (newval.stylish ?
-                    StyliseN(Math.round(value / newval.round) * newval.round) :
-                    Math.round(value / newval.round) * newval.round), " ", actualUnit()] }, void 0));
+    return (_jsxs("span", { ...propstoadd, "data-value": value, className: "REValue " +
+            (props.className ? " " + props.className : ""), id: props.id, draggable: true, onDragStart: mouseDown, onDragEnd: mouseUp, onDrag: mouseDrag, children: [props.getOutputText
+                ? props.getOutputText(Math.round(value / newval.round) * newval.round, actualUnit())
+                : newval.stylish
+                    ? StyliseN(Math.round(value / newval.round) * newval.round)
+                    : Math.round(value / newval.round) * newval.round, " ", actualUnit()] }, void 0));
 };
 export default Value;

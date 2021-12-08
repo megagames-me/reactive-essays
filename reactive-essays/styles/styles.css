@@ -1,5 +1,5 @@
 
-.reactive-essays-css-value {
+.REValue {
     color: dodgerblue;
     border-bottom: dodgerblue 1px dashed;
     -webkit-user-select: none;
@@ -11,11 +11,11 @@
 
 }
 
-.reactive-essays-css-value:hover{
+.REValue:hover{
     cursor: col-resize;
     color: rgb(28, 128, 228);
     border-bottom: rgb(28, 128, 228) 1px dashed;
 } 
-.reactive-essays-css-value:focus {
+.REValue:focus {
     cursor: col-resize;
 }
