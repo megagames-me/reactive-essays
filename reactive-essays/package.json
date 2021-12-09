@@ -1,15 +1,16 @@
 {
   "name": "reactive_essays",
-  "version": "1.0.1-2",
+  "version": "1.0.1-3",
   "description": "A TypeScript + React.js library, inspired by Tangle. This is a tool to make your essays interactive and a systems thinking tool. ",
-  "main": "dist/index",
-  "typings": "dist/index",
+  "main": "./dist/index.js",
+  "typings": "./dist/index.d.ts",
   "directories": {
     "example": "examples",
     "styles": "styles"
   },
   "files": [
     "./dist/*",
+    "./dist/Switch/*",
     "./styles/*",
     "./README.md",
     "./LICENSE"
