@@ -24,7 +24,9 @@ const SwitchItem = (props) => {
             on(props.parentId + ":switch", handleValChange);
         }
         else {
-            throw new DOMException("The reactive-essays <Switch> component with the id '" + props.parentId + "' doesn't exist. Try fixing the parentId prop.");
+            throw new DOMException("The reactive-essays <Switch> component with the id '" +
+                props.parentId +
+                "' doesn't exist. Try fixing the parentId prop.");
         }
         return function cleanup() {
             if (document.querySelector("#" + props.parentId)) {
@@ -34,9 +36,6 @@ const SwitchItem = (props) => {
     }, []);
     // remove custom props from final render so no errors happen
     const propstoadd = (({ statement, parentId, ...o }) => o)(props);
-    if (!active) {
-        return null;
-    }
-    return (_jsx("div", { ...propstoadd, className: "RESwitchItem" + (props.className ? " " + props.className : ""), style: {}, children: props.children }, void 0));
+    return (_jsx("div", { ...propstoadd, style: { ...props.style, display: active ? "block" : "none" }, className: "RESwitchItem" + (props.className ? " " + props.className : ""), children: props.children }, void 0));
 };
 export default SwitchItem;

@@ -28,10 +28,7 @@ const SwitchItemDefault = (props) => {
     }, []);
     // remove custom props from final render so no errors happen
     const propstoadd = (({ parentId, ...o }) => o)(props);
-    if (!active) {
-        return null;
-    }
-    return (_jsx("div", { ...propstoadd, className: "RESwitchItemDefault" +
+    return (_jsx("div", { ...propstoadd, style: { ...props.style, display: active ? "block" : "none" }, className: "RESwitchItemDefault" +
             (props.className ? " " + props.className : ""), children: props.children }, void 0));
 };
 export default SwitchItemDefault;

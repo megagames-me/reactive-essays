@@ -3,8 +3,8 @@ import React, { useEffect, useState } from "react";
 import { on, off, trigger } from "../helpers";
 function checkLen(data) {
     let num = 0;
-    for (const item of data) {
-        if (item.style.display !== "none") {
+    for (let i = 0; i < data.length; i++) {
+        if (data[i].style.display !== "none") {
             num++;
         }
     }
