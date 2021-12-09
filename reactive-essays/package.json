@@ -10,7 +10,7 @@
   },
   "files": [
     "./dist",
-    "./dist/Switch",
+    "./dist/switch",
     "./styles",
     "./README.md",
     "./LICENSE"
