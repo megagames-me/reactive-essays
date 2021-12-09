@@ -7,6 +7,12 @@ interface SwitchItemDefaultProps extends React.HTMLAttributes<HTMLDivElement> {
     parentId: string;
 }
 
+/**
+ * Component for default case in `<Switch>`
+ * 
+ * @param {string} parentId ID of parent element (Should be a `<Switch>` component)
+ */
+
 const SwitchItemDefault: FC<SwitchItemDefaultProps> = (
     props: SwitchItemDefaultProps
 ) => {

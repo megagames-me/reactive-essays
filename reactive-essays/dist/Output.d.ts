@@ -19,5 +19,17 @@ interface OutputProps extends React.HTMLAttributes<HTMLSpanElement> {
     getActualUnit?: OutputCustomUnit;
     stylish?: boolean;
 }
+/**
+ * Outputs from an input
+ *
+ * (Barebones docs, will update soon)
+ *
+ * @param {Array<string> | string} refs
+ * @param {string} [unit] Optional
+ * @param {OutputModifier | number} [getValue] Optional (if you want a boolean value)
+ * @param {OutputCustomText} [getOutputText] Optional
+ * @param {OutputCustomUnit} [getActualUnit] Optional
+ * @param {boolean} [stylish=true] Optional = true
+ */
 declare const Output: FC<OutputProps>;
 export default Output;

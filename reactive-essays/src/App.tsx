@@ -5,6 +5,14 @@ interface AppProps extends React.HTMLAttributes<HTMLDivElement> {
 	waitForLoad?: boolean;
 }
 
+/**
+ * Component wrapper for reactive-essays app. For easy loading fixes.
+ * 
+ * (Barebones, fix later)
+ * 
+ * @param {boolean} [waitForLoad] Optional
+ */
+
 const App: React.FC<AppProps> = (props: AppProps) => {
     const [visible, setVisibility] = React.useState(false);
     React.useEffect(() => {

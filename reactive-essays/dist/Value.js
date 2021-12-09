@@ -7,23 +7,32 @@ import { StyliseN, AddS } from "./index";
  * @param {string} id ID of item. Can reference in other components
  * @param {number} value Default value of dragger
  * @param {string} [unit] The unit of the number. Don't add an 'S' at the end. _Optional_
- * @param {number} [minValue] The minimum value of the dragger. You cannot set it below this. Default: `{0}`
- * @param {number} [maxValue] The maximum value of the dragger. You cannot set it above this. Default: `{Infinity}`
- * @param {number} [scalingRate] The rate at which the number scales. It is a scalar. If `scalingRate=0.1`, it will scale 10 times slower. If it's `10`, it will scale 10 times faster. `-1` means that scaling is reversed. Default: `{1}`
- * @param {boolean} [stylish] If numbers should have decimals or commas. Default: `{true}`
+ * @param {number} [minValue=0] The minimum value of the dragger. You cannot set it below this. Default: `{0}`
+ * @param {number} [maxValue=Infinity] The maximum value of the dragger. You cannot set it above this. Default: `{Infinity}`
+ * @param {number} [scalingRate=1] The rate at which the number scales. It is a scalar. If `scalingRate=0.1`, it will scale 10 times slower. If it's `10`, it will scale 10 times faster. `-1` means that scaling is reversed. Default: `{1}`
+ * @param {boolean} [stylish=true] If numbers should have decimals or commas. Default: `{true}`
+ * @param {number} [round=1] The step. How much it's rounded to. This requires scalingRate to be changed for it work. This isn't a value that I'd suggest using though. Default: `{1}`
+ * @param {ValueCustomText} [getOutputText] A function that's given the output value number and the output unit (see below) and outputs what text will be shown in the blue underline as the `<Value>`. _Optional_
+ * @param {ValueCustomUnit} [getActualUnit] A function that's given the output value number and the raw unit (if the prop `unit` is given) and outputs the final unit. This is given to `getOutputText`. _Optional_
  *
  * Example without output:
  * ```tsx
+ * import { App as REApp } from "reactive_essays"
  * return (
  *    <REApp>
- *      I ate <REValue id="cookies" value={3} unit="cookie" minValue={1} maxValue={15} /> today.
+ *      I ate <Value id="cookie" value={3} unit="cookie" minValue={1} maxValue={15} /> today.
  *    </REApp>
  * )
  * ```
  *
  * Example with output:
  * ```tsx
- * // add later
+ * return (
+ *    <REApp>
+ *      I ate <Value id="cookie" value={3} unit="cookie" minValue={1} maxValue={15} /> today. That is <Output refs="cookies" unit="calorie" getValue={17} />.
+ *    </REApp>
+ *    // Provides slider input of amount of cookies, and outputs how many calories that is.
+ * )
  * ```
  */
 const Value = (props) => {

@@ -1,6 +1,18 @@
 import { jsx as _jsx } from "react/jsx-runtime";
 import React from "react";
 import { on, off, AddS, StyliseN } from "./helpers";
+/**
+ * Outputs from an input
+ *
+ * (Barebones docs, will update soon)
+ *
+ * @param {Array<string> | string} refs
+ * @param {string} [unit] Optional
+ * @param {OutputModifier | number} [getValue] Optional (if you want a boolean value)
+ * @param {OutputCustomText} [getOutputText] Optional
+ * @param {OutputCustomUnit} [getActualUnit] Optional
+ * @param {boolean} [stylish=true] Optional = true
+ */
 const Output = (props) => {
     const [srefs, setSrefs] = React.useState(typeof props.refs == "object" ? props.refs : [props.refs]);
     const [inputvals, setInputvals] = React.useState({});

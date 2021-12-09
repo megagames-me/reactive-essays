@@ -1,4 +1,14 @@
 import { jsx as _jsx, Fragment as _Fragment } from "react/jsx-runtime";
+/**
+ * A component that acts like those infographics with people percentages.
+ * (Barebones, change later)
+ * @param {number} rows
+ * @param {number} columns
+ * @param {number} people
+ * @param {number} percentage
+ * @param {boolean} [hasIcon] Default true
+ * @param {boolean} [darkTheme] Default false
+ */
 const People = ({ rows, columns, people, percentage, hasIcon, darkTheme, }) => {
     if (percentage > 100 || percentage < 0) {
         throw new Error("Percentage cannot be greater than 100 or less than 0.");
@@ -52,5 +62,9 @@ const People = ({ rows, columns, people, percentage, hasIcon, darkTheme, }) => {
                             ? "#71717A"
                             : "#A1A1AA", children: _jsx("path", { d: "M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v1c0 .55.45 1 1 1h14c.55 0 1-.45 1-1v-1c0-2.66-5.33-4-8-4z" }, void 0) }, void 0)) : (_jsx(_Fragment, {}, void 0)) }, index));
         }) }, void 0));
+};
+People.defaultProps = {
+    hasIcon: true,
+    darkTheme: false
 };
 export default People;

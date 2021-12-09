@@ -1,5 +1,12 @@
 import { jsx as _jsx } from "react/jsx-runtime";
 import React from "react";
+/**
+ * Component wrapper for reactive-essays app. For easy loading fixes.
+ *
+ * (Barebones, fix later)
+ *
+ * @param {boolean} [waitForLoad] Optional
+ */
 const App = (props) => {
     const [visible, setVisibility] = React.useState(false);
     React.useEffect(() => {

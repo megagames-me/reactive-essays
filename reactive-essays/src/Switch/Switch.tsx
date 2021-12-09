@@ -9,8 +9,32 @@ interface SwitchProps extends React.HTMLAttributes<HTMLDivElement> {
     statement: SwitchStatement;
     // ID of switch. Like in value
     id: string;
-    defaultCase: () => FC;
+    defaultCase?: () => FC;
 }
+
+/**
+ * Component for a React switch, like in js
+ * 
+ * (Barebones docs, will update soon)
+ * 
+ * Example:
+ * ```ts
+ * switch (key) {
+    case value:
+        console.log("Key is value here!")
+        break;
+
+    default:
+        console.log("No case matches key.")
+        break;
+}
+ * ```
+ * 
+ * @param {Array<string> | string} refs
+ * @param {SwitchStatement} statement
+ * @param {id} id
+ * @param {() => FC} [defaultCase] Optional
+ */
 
 const Switch: FC<SwitchProps> = (props: SwitchProps) => {
     const [args, setArgs] = useState<Array<string>>(
@@ -35,27 +59,31 @@ const Switch: FC<SwitchProps> = (props: SwitchProps) => {
             input,
             updatedBy: e.target,
         });
-
-        if (
-            (document.querySelector(`#${props.id}-children`) as HTMLDivElement)
-                .children.length == 0
-        ) {
+        if (props.defaultCase) {
             if (
-                (document.querySelector(`#${props.id}`) as HTMLDivElement)
-                    .children.length == 1
+                (
+                    document.querySelector(
+                        `#${props.id}-children`
+                    ) as HTMLDivElement
+                ).children.length == 0
             ) {
-                trigger(props.id + ":switchdefault", {
-                    active: true,
-                });
-            }
-        } else {
-            if (
-                (document.querySelector(`#${props.id}`) as HTMLDivElement)
-                    .children.length == 2
-            ) {
-                trigger(props.id + ":switchdefault", {
-                    active: false,
-                });
+                if (
+                    (document.querySelector(`#${props.id}`) as HTMLDivElement)
+                        .children.length == 1
+                ) {
+                    trigger(props.id + ":switchdefault", {
+                        active: true,
+                    });
+                }
+            } else {
+                if (
+                    (document.querySelector(`#${props.id}`) as HTMLDivElement)
+                        .children.length == 2
+                ) {
+                    trigger(props.id + ":switchdefault", {
+                        active: false,
+                    });
+                }
             }
         }
     }
@@ -89,7 +117,7 @@ const Switch: FC<SwitchProps> = (props: SwitchProps) => {
         >
             <div id={props.id + "-children"}>{props.children}</div>
             {(() => {
-                if (defaultNeed) {
+                if (defaultNeed && props.defaultCase) {
                     return props.defaultCase();
                 }
                 return null;

@@ -17,6 +17,20 @@ interface IfProps extends React.HTMLAttributes<HTMLDivElement> {
     refs: Array<string> | string;
 }
 
+/**
+ * A component that acts as a JS if statement.
+ * 
+ * Example of if statement:
+ * ```ts
+ * if (condition) {
+    console.log("condition is true!")
+}
+ * ```
+ * For now, there isn't an else feature.
+ * 
+ * @param {IfStatement} statement 
+ * @param {Array<string> | string} refs
+ */
 const If: FC<IfProps> = (props: IfProps) => {
     const [args, setArgs] = React.useState<Array<string>>(
         typeof props.refs == "object" ? props.refs : [props.refs]

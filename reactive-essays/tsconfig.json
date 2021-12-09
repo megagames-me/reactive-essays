@@ -6,7 +6,7 @@
 		"alwaysStrict": true,
 		"strict": true,
 		"jsx": "react-jsx",
-		"outDir": "dist",
+		"outDir": "./dist",
 		"declaration": true,
 		"allowSyntheticDefaultImports": true,
         "noUnusedLocals": false,
