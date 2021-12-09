@@ -80,7 +80,7 @@ const If: FC<IfProps> = (props: IfProps) => {
                 (active ? "REIfActive" : "REIfInactive") +
                 (props.className ? " " + props.className : "")
             }
-        ></div>
+        >{props.children}</div>
     );
 };
 
