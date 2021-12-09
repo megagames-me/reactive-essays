@@ -9,7 +9,7 @@ interface SwitchItemDefaultProps extends React.HTMLAttributes<HTMLDivElement> {
 
 /**
  * Component for default case in `<Switch>`
- * 
+ *
  * @param {string} parentId ID of parent element (Should be a `<Switch>` component)
  */
 
@@ -42,13 +42,11 @@ const SwitchItemDefault: FC<SwitchItemDefaultProps> = (
 
     // remove custom props from final render so no errors happen
     const propstoadd = (({ parentId, ...o }) => o)(props);
-    if (!active) {
-        return null;
-    }
 
     return (
         <div
             {...propstoadd}
+            style={{ ...props.style, display: active ? "block" : "none" }}
             className={
                 "RESwitchItemDefault" +
                 (props.className ? " " + props.className : "")
