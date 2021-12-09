@@ -48,6 +48,6 @@ const If = (props) => {
     // ternaries again... first one adds a class whether it's active or inactive, and the second one adds the custom classes
     return (_jsx("div", { ...propstoadd, className: "REIf " +
             (active ? "REIfActive" : "REIfInactive") +
-            (props.className ? " " + props.className : ""), children: active ? props.children : null }, void 0));
+            (props.className ? " " + props.className : ""), style: { display: active ? "block" : "none" }, children: props.children }, void 0));
 };
 export default If;

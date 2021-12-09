@@ -4,16 +4,16 @@ import { on, off, AddS, StyliseN } from "./helpers";
 
 // types for custom functions
 interface OutputInputVals {
-    [index: string]: number | boolean;
+    [index: string]: (number | boolean);
 }
 interface OutputModifier {
     (inputval: OutputInputVals): number;
 }
 interface OutputCustomText {
-    (val: number | boolean, unit: string): string;
+    (val: (number | boolean), unit: string): string;
 }
 interface OutputCustomUnit {
-    (val: number | boolean, rawunit?: string): string;
+    (val: (number | boolean), rawunit?: string): string;
 }
 
 // types

@@ -3,6 +3,15 @@ import React, { BaseSyntheticEvent, FC, useEffect, useState } from "react";
 import { on, off, AddS, StyliseN, trigger } from "../helpers";
 import { SwitchData, SwitchStatement } from "./SwitchTypes";
 
+function checkForActiveItems(data: HTMLCollection): number {
+    var items = 0;
+    for (let i = 0; i < data.length; i++) {
+        if ((data[i] as HTMLElement).style.display !== "none") {
+            items++;
+        }
+    }
+    return items;
+}
 interface SwitchProps extends React.HTMLAttributes<HTMLDivElement> {
     // the id or ids of inputs that this uses
     refs: Array<string> | string;
@@ -61,15 +70,22 @@ const Switch: FC<SwitchProps> = (props: SwitchProps) => {
         });
         if (props.defaultCase) {
             if (
-                (
-                    document.querySelector(
-                        `#${props.id}-children`
-                    ) as HTMLDivElement
-                ).children.length == 0
+                checkForActiveItems(
+                    (
+                        document.querySelector(
+                            `#${props.id}-children`
+                        ) as HTMLDivElement
+                    ).children
+                ) == 0
             ) {
                 if (
-                    (document.querySelector(`#${props.id}`) as HTMLDivElement)
-                        .children.length == 1
+                    checkForActiveItems(
+                        (
+                            document.querySelector(
+                                `#${props.id}`
+                            ) as HTMLDivElement
+                        ).children
+                    ) == 1
                 ) {
                     trigger(props.id + ":switchdefault", {
                         active: true,
@@ -77,8 +93,13 @@ const Switch: FC<SwitchProps> = (props: SwitchProps) => {
                 }
             } else {
                 if (
-                    (document.querySelector(`#${props.id}`) as HTMLDivElement)
-                        .children.length == 2
+                    checkForActiveItems(
+                        (
+                            document.querySelector(
+                                `#${props.id}`
+                            ) as HTMLDivElement
+                        ).children
+                    ) == 2
                 ) {
                     trigger(props.id + ":switchdefault", {
                         active: false,
