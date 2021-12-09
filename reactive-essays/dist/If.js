@@ -46,8 +46,8 @@ const If = (props) => {
     // remove custom props from final render so no errors happen
     const propstoadd = (({ statement, refs, ...o }) => o)(props);
     // ternaries again... first one adds a class whether it's active or inactive, and the second one adds the custom classes
-    return (_jsx("div", { ...propstoadd, className: "REIf " +
+    return (_jsx("div", { ...propstoadd, style: { display: active ? "block" : "none" }, className: "REIf " +
             (active ? "REIfActive" : "REIfInactive") +
-            (props.className ? " " + props.className : ""), children: active ? props.children : null }, void 0));
+            (props.className ? " " + props.className : "") }, void 0));
 };
 export default If;

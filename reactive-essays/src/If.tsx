@@ -74,14 +74,13 @@ const If: FC<IfProps> = (props: IfProps) => {
     return (
         <div
             {...propstoadd}
+            style={{ display: active ? "block" : "none" }}
             className={
                 "REIf " +
                 (active ? "REIfActive" : "REIfInactive") +
                 (props.className ? " " + props.className : "")
             }
-        >
-            {active ? props.children : null}
-        </div>
+        ></div>
     );
 };
 

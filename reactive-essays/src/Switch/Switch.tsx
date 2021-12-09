@@ -3,6 +3,16 @@ import React, { BaseSyntheticEvent, FC, useEffect, useState } from "react";
 import { on, off, AddS, StyliseN, trigger } from "../helpers";
 import { SwitchData, SwitchStatement } from "./SwitchTypes";
 
+function checkLen(data: HTMLCollection) {
+    let num = 0;
+    for (const item of data) {
+        if ((item as HTMLElement).style.display !== "none") {
+            num++;
+        }
+    }
+    return num;
+}
+
 interface SwitchProps extends React.HTMLAttributes<HTMLDivElement> {
     // the id or ids of inputs that this uses
     refs: Array<string> | string;
@@ -61,15 +71,22 @@ const Switch: FC<SwitchProps> = (props: SwitchProps) => {
         });
         if (props.defaultCase) {
             if (
-                (
-                    document.querySelector(
-                        `#${props.id}-children`
-                    ) as HTMLDivElement
-                ).children.length == 0
+                checkLen(
+                    (
+                        document.querySelector(
+                            `#${props.id}-children`
+                        ) as HTMLDivElement
+                    ).children
+                ) == 0
             ) {
                 if (
-                    (document.querySelector(`#${props.id}`) as HTMLDivElement)
-                        .children.length == 1
+                    checkLen(
+                        (
+                            document.querySelector(
+                                `#${props.id}`
+                            ) as HTMLDivElement
+                        ).children
+                    ) == 1
                 ) {
                     trigger(props.id + ":switchdefault", {
                         active: true,
@@ -77,8 +94,13 @@ const Switch: FC<SwitchProps> = (props: SwitchProps) => {
                 }
             } else {
                 if (
-                    (document.querySelector(`#${props.id}`) as HTMLDivElement)
-                        .children.length == 2
+                    checkLen(
+                        (
+                            document.querySelector(
+                                `#${props.id}`
+                            ) as HTMLDivElement
+                        ).children
+                    ) == 2
                 ) {
                     trigger(props.id + ":switchdefault", {
                         active: false,
@@ -113,7 +135,6 @@ const Switch: FC<SwitchProps> = (props: SwitchProps) => {
             className={
                 "RESwitch" + (props.className ? " " + props.className : "")
             }
-            style={{}}
         >
             <div id={props.id + "-children"}>{props.children}</div>
             {(() => {
