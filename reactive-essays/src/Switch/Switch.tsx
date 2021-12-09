@@ -5,8 +5,8 @@ import { SwitchData, SwitchStatement } from "./SwitchTypes";
 
 function checkLen(data: HTMLCollection) {
     let num = 0;
-    for (const item of data) {
-        if ((item as HTMLElement).style.display !== "none") {
+    for (let i = 0; i < data.length; i++) {
+        if ((data[i] as HTMLElement).style.display !== "none") {
             num++;
         }
     }
